@@ -1,0 +1,14 @@
+{
+  "session_id": "70ee7d0d57dbee98cc385c9e52e1824801bc7fe77375b0034a295965fe672818",
+  "user_data": {
+    "id": "793e7394-925e-4817-91ac-3b2d07c8cfda",
+    "username": "admin",
+    "name": "System Administrator",
+    "email": "admin@digitalcompanion.com",
+    "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "admin"
+  },
+  "created_at": "2025-09-05T21:17:48.838316",
+  "last_accessed": "2025-09-05T21:18:18.453549",
+  "expires_at": "2025-09-06T21:18:18.453527"
+}

@@ -1,18 +1,30 @@
-FROM python:3.11-slim
+FROM amazonlinux:2023
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+# Install Python 3.11 and system dependencies
+RUN dnf update -y \
+    && dnf install -y \
+        python3.11 \
+        python3.11-pip \
+        python3.11-devel \
         gcc \
+        gcc-c++ \
         curl \
         ffmpeg \
-        libsm6 \
-        libxext6 \
-        libglib2.0-0 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        libSM \
+        libXext \
+        glib2-devel \
+        libX11-devel \
+        libXrender-devel \
+        fontconfig-devel \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf
+
+# Create symlinks for python and pip
+RUN ln -sf /usr/bin/python3.11 /usr/bin/python3 \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python \
+    && ln -sf /usr/bin/pip3.11 /usr/bin/pip
 
 # Copy requirements first for better caching
 COPY requirements.txt .
@@ -24,8 +36,8 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser \
     && mkdir -p /app/cache
 
 # Install Python dependencies
-RUN python -m pip install --upgrade pip \
-    && python -m pip install --no-cache-dir -r requirements.txt
+RUN python3.11 -m pip install --upgrade pip \
+    && python3.11 -m pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
@@ -49,4 +61,4 @@ EXPOSE 8501
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
-CMD ["streamlit", "run", "DIGITAL_COMPANION_APP.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["python3.11", "-m", "streamlit", "run", "DIGITAL_COMPANION_APP.py", "--server.port=8501", "--server.address=0.0.0.0"]

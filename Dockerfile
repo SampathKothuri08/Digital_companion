@@ -17,6 +17,12 @@ RUN apt-get update \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
+# Create non-root user for security
+RUN groupadd -r appuser && useradd -r -g appuser appuser \
+    && mkdir -p /home/appuser/.cache \
+    && mkdir -p /app/.streamlit \
+    && mkdir -p /app/cache
+
 # Install Python dependencies
 RUN python -m pip install --upgrade pip \
     && python -m pip install --no-cache-dir -r requirements.txt
@@ -24,12 +30,8 @@ RUN python -m pip install --upgrade pip \
 # Copy application code
 COPY . .
 
-# Create non-root user for security
-RUN groupadd -r appuser && useradd -r -g appuser appuser \
-    && mkdir -p /home/appuser/.cache \
-    && mkdir -p /app/.streamlit \
-    && mkdir -p /app/cache \
-    && chown -R appuser:appuser /app \
+# Set proper permissions
+RUN chown -R appuser:appuser /app \
     && chown -R appuser:appuser /home/appuser \
     && chmod 755 /app
 

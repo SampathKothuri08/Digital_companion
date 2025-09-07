@@ -52,7 +52,7 @@ def render_auth_page(auth_service: AuthService):
     """, unsafe_allow_html=True)
 
     # Updated header with new text
-    st.markdown('<div class="role-header">🔐 Digital Companion - Aero Chatbot</div>', unsafe_allow_html=True)
+    st.markdown('<div class="role-header">🔐 Talk to Aero</div>', unsafe_allow_html=True)
     
     # Demo credentials info
     with st.expander("🔍 Demo Credentials"):

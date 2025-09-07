@@ -1,4 +1,4 @@
-# Digital Companion - Educational RAG Chatbot
+# Talk to Aero - Educational RAG Chatbot
 
 A scalable RAG (Retrieval-Augmented Generation) chatbot system designed for educational institutions with 500+ concurrent users.
 

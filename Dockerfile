@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install Python and basic dependencies
 RUN dnf update -y && \
-    dnf install -y python3 python3-pip gcc curl && \
+    dnf install -y python3 python3-pip gcc && \
     dnf clean all
 
 # Copy and install Python requirements

@@ -1247,14 +1247,14 @@ def sidebar_controls():
 
 
     # Clean model info (collapsed by default)
-    with st.sidebar.expander("ℹ️ About AERO"):
+    with st.sidebar.expander("ℹ About AERO"):
         st.info("**AERO** - AI Educational Response Oracle\nIntelligent learning assistant powered by advanced AI.")
 
     # Simple session stats (optional)
     if st.session_state.get("authenticated") and st.session_state.messages:
         total_messages = len([m for m in st.session_state.messages if m["role"] == "user"])
         if total_messages > 0:
-            with st.sidebar.expander(f"💬 {total_messages} questions asked"):
+            with st.sidebar.expander(f"💬{total_messages} questions asked"):
                 st.write("✅ Session active")
 
     # Controls (only show if authenticated)
